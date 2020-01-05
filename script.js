@@ -55,16 +55,28 @@
                     }
                 }
             });
+
+            Object.keys(classesData).forEach((className) => {
+                var ability = Object.keys(classesData[className]);
+                ability.pop();
+                var tooltip = ability.join("\n");
+                $("button#"+className).attr("title", tooltip);
+            });
+            
+            $('[data-toggle="tooltip"]').tooltip();
             //console.log(JSON.stringify(classesData, null, 5));
         }
         
-        var addSelector = (className) => {
+        var addSelector = (className, desc) => {
             if(className == "Ability"){
                 return;
             }
             unselectedClasses.push(className);
             var anchor = $("div#classes-selector");
-            var fakeDir = '<button id="'+className+'" class="dos2-class">'+className+'</button>';
+            var fakeDir = '<button id="'+className
+            +'" class="btn dos2-class"'
+            +' data-toggle="tooltip" data-placement="bottom" title="'+desc+'">'
+            +className+'</button>';
             anchor.append(fakeDir);
             
             $("button#"+className).click((event) => {
@@ -118,9 +130,9 @@
                 covering.splice(covering.indexOf('skills'),1);
             });
             
-            coveringAnchor.append('<pre class="covering-results">'+JSON.stringify(covering, null, 2)+'</pre>');
+            coveringAnchor.append('<h5>('+covering.length+')</h5><pre class="covering-results">'+JSON.stringify(covering, null, 2)+'</pre>');
             
-            coveringAnchor.append('<pre class="covering-results-doubles">'+JSON.stringify(doubles, null, 2)+'</pre>');
+            coveringAnchor.append('<h5>('+doubles.length+')</h5><pre class="covering-results-doubles">'+JSON.stringify(doubles, null, 2)+'</pre>');
             
             if(unselectedClasses.length < 1){
                 return;
@@ -137,7 +149,7 @@
                 lacking.splice(lacking.indexOf('skills'),1);
             });
             
-            lackingAnchor.append('<pre class="lacking-results">'+JSON.stringify(lacking, null, 2)+'</pre>');
+            lackingAnchor.append('<h5>('+lacking.length+')</h5><pre class="lacking-results">'+JSON.stringify(lacking, null, 2)+'</pre>');
         }
         
         var displayLacking = () => {

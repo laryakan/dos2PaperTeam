@@ -29,3 +29,7 @@ input {
     background-color: lightsalmon;
     font-size: small;
 }
+
+.tooltip-inner {
+    white-space:pre-wrap;
+}
