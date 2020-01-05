@@ -39,7 +39,7 @@
 
                 for (let i = 1; i < (row.length); i++) {
                     if(!classesData[classesOrder[i]]){
-                        classesData[classesOrder[i]] = {skills:[]};
+                        classesData[classesOrder[i]] = {};
                     }
                     if(row[i] == ''){
                         continue;
@@ -48,6 +48,9 @@
                     if(Number.isInteger(val)){
                         classesData[classesOrder[i]][row[0]] = val;
                     } else {
+                        if(!classesData[classesOrder[i]].skills){
+                            classesData[classesOrder[i]].skills = [];
+                        }
                         classesData[classesOrder[i]].skills.push(row[i]);
                     }
                 }
@@ -93,23 +96,45 @@
         }
 
         var displayCovering = () => {
-            var anchor = $("div#covering-results");
-            anchor.empty();
+            var coveringAnchor = $("div#covering-results");
+            var lackingAnchor = $("div#lacking-results");
+            coveringAnchor.empty();
+            lackingAnchor.empty();
             if(selectedClasses.length < 1){
                 return;
             }
-
-            var covering = {};
+            var covering = [];
             selectedClasses.forEach((sClass) => {
-                covering = {...covering, ...classesData[sClass]};
+                covering = [...new Set(covering.concat(Object.keys(classesData[sClass])))];
+                // Old way
+                //var skillDump = covering.skills || [];
+                //covering = {...covering, ...classesData[sClass]};
+                //covering.skills = [...new Set(skillDump.concat(covering.skills))];
+                covering.splice(covering.indexOf('skills'),1);
             });
 
-            anchor.append('<pre style="background-color:gray;">'+JSON.stringify(covering, null, 2)+'</pre>');
+            coveringAnchor.append('<pre class="covering-results">'+JSON.stringify(covering, null, 2)+'</pre>');
+
+            if(unselectedClasses.length < 1){
+                return;
+            }
+            var lacking = [];
+            unselectedClasses.forEach((usClass) => {
+                
+                lacking = [...new Set(lacking.concat(Object.keys(classesData[usClass])))];
+                lacking = lacking.filter(x => !covering.includes(x));
+                // Old way
+                //var skillDump = lacking.skills || [];
+                //lacking = {...lacking, ...classesData[sClass]};
+                //lacking.skills = [...new Set(skillDump.concat(lacking.skills))];
+                lacking.splice(lacking.indexOf('skills'),1);
+            });
+
+            lackingAnchor.append('<pre class="lacking-results">'+JSON.stringify(lacking, null, 2)+'</pre>');
         }
 
         var displayLacking = () => {
-            var anchor = $("div#lacking-results");
-            anchor.empty();
+           
         }
         /***********************************************/
         // Listeners

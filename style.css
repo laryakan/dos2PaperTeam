@@ -14,3 +14,13 @@ input {
 .dos2-class-selected {
     background-color: lightgreen;
 }
+
+.covering-results {
+    background-color: lightgreen;
+    font-size: small;
+}
+
+.lacking-results {
+    background-color: lightsalmon;
+    font-size: small;
+}
