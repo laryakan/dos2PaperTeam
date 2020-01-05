@@ -1,0 +1,24 @@
+{
+  "name": "dos2PaperTeam",
+  "version": "1.0.0",
+  "description": "Compose your Divinity Original Sin 2 starting Team",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dos",
+    "divinity",
+    "original",
+    "sin",
+    "starting",
+    "team"
+  ],
+  "author": "Laryakan",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "jquery": "^1.9.1",
+    "popper.js": "^1.16.0"
+  }
+}
