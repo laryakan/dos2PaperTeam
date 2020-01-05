@@ -20,6 +20,11 @@ input {
     font-size: small;
 }
 
+.covering-results-doubles {
+    background-color: lightskyblue;
+    font-size: small;
+}
+
 .lacking-results {
     background-color: lightsalmon;
     font-size: small;

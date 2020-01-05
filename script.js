@@ -36,7 +36,7 @@
                     firstLine = false;
                     return;
                 }
-
+                
                 for (let i = 1; i < (row.length); i++) {
                     if(!classesData[classesOrder[i]]){
                         classesData[classesOrder[i]] = {};
@@ -57,7 +57,7 @@
             });
             //console.log(JSON.stringify(classesData, null, 5));
         }
-
+        
         var addSelector = (className) => {
             if(className == "Ability"){
                 return;
@@ -66,12 +66,12 @@
             var anchor = $("div#classes-selector");
             var fakeDir = '<button id="'+className+'" class="dos2-class">'+className+'</button>';
             anchor.append(fakeDir);
-
+            
             $("button#"+className).click((event) => {
                 switchState(event.target);
             });
         }
-
+        
         var switchState = (classButton) => {
             classButton = $(classButton);
             if(classButton.hasClass('dos2-class-selected')){
@@ -83,7 +83,7 @@
             }
             displayCovering();
         }
-
+        
         var moveClass = (className, selected) => {
             if(selected){
                 selectedClasses.push(className);
@@ -92,9 +92,9 @@
                 unselectedClasses.push(className);
                 selectedClasses.splice(selectedClasses.indexOf(className),1);
             }
-            console.log(className, selected, JSON.stringify(selectedClasses));
+            //console.log(className, selected, JSON.stringify(selectedClasses));
         }
-
+        
         var displayCovering = () => {
             var coveringAnchor = $("div#covering-results");
             var lackingAnchor = $("div#lacking-results");
@@ -104,7 +104,12 @@
                 return;
             }
             var covering = [];
+            var doubles = [];
             selectedClasses.forEach((sClass) => {
+                doubles = [...new Set(
+                    doubles.concat(covering.filter(x => Object.keys(classesData[sClass]).includes(x)))
+                    )
+                ];
                 covering = [...new Set(covering.concat(Object.keys(classesData[sClass])))];
                 // Old way
                 //var skillDump = covering.skills || [];
@@ -112,9 +117,11 @@
                 //covering.skills = [...new Set(skillDump.concat(covering.skills))];
                 covering.splice(covering.indexOf('skills'),1);
             });
-
+            
             coveringAnchor.append('<pre class="covering-results">'+JSON.stringify(covering, null, 2)+'</pre>');
-
+            
+            coveringAnchor.append('<pre class="covering-results-doubles">'+JSON.stringify(doubles, null, 2)+'</pre>');
+            
             if(unselectedClasses.length < 1){
                 return;
             }
@@ -129,12 +136,12 @@
                 //lacking.skills = [...new Set(skillDump.concat(lacking.skills))];
                 lacking.splice(lacking.indexOf('skills'),1);
             });
-
+            
             lackingAnchor.append('<pre class="lacking-results">'+JSON.stringify(lacking, null, 2)+'</pre>');
         }
-
+        
         var displayLacking = () => {
-           
+            
         }
         /***********************************************/
         // Listeners

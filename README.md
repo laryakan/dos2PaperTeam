@@ -7,3 +7,7 @@ Upload classes-data.csv with the browsing button, then select classes you want i
 to show which ability is covered and which not.
 
 classes-data.csv contains default classes data. You can customize it.
+
+Covered abilities will be displayed on green.
+Doubled abilities will be displayed on blue, under the covered ones.
+Lacked abilities will be on red.
