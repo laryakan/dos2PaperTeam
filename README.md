@@ -1,7 +1,7 @@
 # dos2PaperTeam
 -Compose your Divinity Original 2 starting team-
 ## Online run
-[Site here !]([https://link-url-here.org](https://laryakan.github.io/dos2PaperTeam/)
+[Site here !](https://laryakan.github.io/dos2PaperTeam/)
 Upload a classes-data.csv (look to source for an example)
 
 ## Local run
